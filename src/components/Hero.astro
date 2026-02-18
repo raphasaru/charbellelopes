@@ -1,0 +1,88 @@
+---
+import { ChevronDown } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+const basePath = lang === 'pt-br' ? '/pt-br' : '';
+---
+
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-plum via-plum/95 to-plum/90">
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-plum/80 via-transparent to-plum/60"></div>
+    <!-- Noise texture -->
+    <div class="absolute inset-0 noise-overlay"></div>
+    <!-- Decorative elements -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-magenta/10 blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-magenta-light/10 blur-3xl"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+    <!-- Name -->
+    <h1 class="hero-name font-heading font-semibold mb-6 opacity-0" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: 0.02em; color: #FDF6F9;">
+      {t.hero.name.split('').map((char: string, i: number) => (
+        <span
+          class="inline-block opacity-0 animate-fade-up"
+          style={`animation-delay: ${i * 40}ms`}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-magenta-light text-xl md:text-2xl font-light tracking-widest mb-4 opacity-0 animate-fade-up delay-600">
+      {t.hero.subtitle}
+    </p>
+
+    <!-- Tagline -->
+    <p class="text-blush/70 text-lg md:text-xl font-body mb-10 opacity-0 animate-fade-up delay-700">
+      {t.hero.tagline}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up delay-800">
+      <a
+        href={`${basePath}/#portfolio`}
+        class="group relative px-8 py-4 bg-magenta text-blush font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-magenta/30"
+      >
+        <span class="relative z-10">{t.hero.cta_portfolio}</span>
+        <div class="absolute inset-0 bg-magenta-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+      </a>
+      <a
+        href={`${basePath}/#contact`}
+        class="px-8 py-4 border-2 border-blush/40 text-blush font-medium rounded-full hover:bg-blush/10 hover:border-blush/60 transition-all duration-300"
+      >
+        {t.hero.cta_book}
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <a
+    href={`${basePath}/#about`}
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 text-blush/60 hover:text-blush transition-colors duration-300 animate-bounce"
+    aria-label="Scroll down"
+  >
+    <ChevronDown class="w-8 h-8" />
+  </a>
+</section>
+
+<style>
+  .hero-name {
+    animation: heroFadeIn 0.8s ease-out 0.2s forwards;
+  }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

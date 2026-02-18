@@ -1,0 +1,34 @@
+---
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const isPortuguese = lang === 'pt-br';
+const targetPath = isPortuguese ? '/' : '/pt-br/';
+---
+
+<a
+  href={targetPath}
+  class="language-toggle flex items-center gap-2 px-3 py-1.5 rounded-full bg-lilac/50 hover:bg-lilac transition-colors duration-200"
+  title={isPortuguese ? 'Switch to English' : 'Mudar para Português'}
+  data-current-lang={lang}
+>
+  <span class="text-xl leading-none">{isPortuguese ? '🇺🇸' : '🇧🇷'}</span>
+  <span class="text-xs font-medium text-plum uppercase tracking-wide">
+    {isPortuguese ? 'EN' : 'PT'}
+  </span>
+</a>
+
+<script>
+  // Save language preference when user clicks
+  document.querySelectorAll('.language-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const currentLang = toggle.getAttribute('data-current-lang');
+      const newLang = currentLang === 'pt-br' ? 'en' : 'pt-br';
+      localStorage.setItem('preferred-lang', newLang);
+    });
+  });
+</script>

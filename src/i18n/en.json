@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "process": "Process",
+    "contact": "Contact"
+  },
+  "hero": {
+    "name": "CHARBELLE LOPES",
+    "subtitle": "Realism | Pets | Cover-up",
+    "tagline": "Transforming skin into stories",
+    "cta_portfolio": "View Portfolio",
+    "cta_book": "Book a Session"
+  },
+  "about": {
+    "title": "About Me",
+    "bio": "I'm Charbelle Lopes, a tattoo artist based in Abington, MA, specializing in realism, pet portraits, and cover-ups. Every piece I create is a collaboration between your story and my art, transforming meaningful moments into permanent masterpieces on your skin.",
+    "quote": "\"Art is not what you see, but what you make others see.\"",
+    "stat_since": "Since 2018",
+    "stat_awards": "5 Awards",
+    "stat_judge": "Tattoo Week Judge"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "tab_tattoos": "Tattoos",
+    "tab_coverups": "Cover-ups",
+    "filter_all": "All",
+    "filter_color": "Color",
+    "filter_bw": "Black & White",
+    "before": "Before",
+    "after": "After",
+    "see_more": "See more on Instagram"
+  },
+  "process": {
+    "title": "How It Works",
+    "step1_title": "Contact",
+    "step1_desc": "Fill out the form with your idea and inspiration images",
+    "step2_title": "Scheduling",
+    "step2_desc": "I'll reach out via email within 7 business days with available dates",
+    "step3_title": "Design & Session",
+    "step3_desc": "Your custom design is created on the day of your session",
+    "step4_title": "Aftercare",
+    "step4_desc": "Complete healing guidance provided",
+    "consultation_note": "For complex projects or cover-ups, an optional in-person consultation can be arranged prior to the session."
+  },
+  "contact": {
+    "title": "Tell Me About Your Tattoo Idea",
+    "subtitle": "First contact via email — response within 7 business days.",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "instagram": "Instagram",
+    "instagram_placeholder": "@yourhandle",
+    "tattoo_type": "What are you looking for?",
+    "type_new": "New Tattoo",
+    "type_coverup": "Cover-up / Scar",
+    "tattoo_idea": "Tell me about your idea",
+    "tattoo_idea_placeholder": "Describe your tattoo idea, style preferences, and any meaningful elements...",
+    "size": "Approximate Size",
+    "size_placeholder": "e.g., 10x15 cm",
+    "inspiration": "Inspiration Images",
+    "inspiration_hint": "Max 5 images",
+    "current_tattoo": "Current Tattoo / Scar Photo",
+    "current_tattoo_hint": "Upload a photo of the area to be covered",
+    "preferred_days": "Preferred Days of the Week",
+    "day_mon": "Monday",
+    "day_tue": "Tuesday",
+    "day_thu": "Thursday",
+    "day_fri": "Friday",
+    "day_sat": "Saturday",
+    "comments": "Additional Notes",
+    "comments_placeholder": "Any other details you'd like to share...",
+    "submit": "Send Request",
+    "submitting": "Sending...",
+    "required": "Required"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "location": "Abington, MA",
+    "contact_title": "Contact",
+    "follow_title": "Follow"
+  }
+}

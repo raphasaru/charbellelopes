@@ -1,0 +1,413 @@
+---
+import { X, ChevronLeft, ChevronRight } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+
+const rawTattooItems = [
+  { id: 1,  title: { en: 'Chihuahua Portrait',    'pt-br': 'Retrato Chihuahua'    }, type: 'coloridas',      src: '/images/portfolio/color-chihuahua-dog-portrait-tattoo-tiny-beans.webp.webp' },
+  { id: 2,  title: { en: 'Birth Stats',            'pt-br': 'Dados de Nascimento'  }, type: 'black and white', src: '/images/portfolio/bw-forearm-birth-stats-tattoo-emmanuel-july-2025.webp.webp' },
+  { id: 3,  title: { en: 'Floral Sleeve',          'pt-br': 'Manga Floral'         }, type: 'coloridas',      src: '/images/portfolio/color-colorful-full-sleeve-sunflower-bee-floral-tattoo.webp.webp' },
+  { id: 4,  title: { en: 'Phoenix Back',           'pt-br': 'Fênix nas Costas'    }, type: 'black and white', src: '/images/portfolio/bw-phoenix-back-tattoo-with-blue-flowers.webp.webp' },
+  { id: 5,  title: { en: 'Sea Turtle',             'pt-br': 'Tartaruga Marinha'    }, type: 'coloridas',      src: '/images/portfolio/color-colorful-sea-turtle-tattoo-with-pink-hibiscus-and-starfish.webp.webp' },
+  { id: 6,  title: { en: 'Roaring Bear',           'pt-br': 'Urso Rugindo'         }, type: 'black and white', src: '/images/portfolio/bw-roaring-bear-hand-tattoo-knox-name-star-black-and-grey.webp.webp' },
+  { id: 7,  title: { en: 'Floral Butterfly',       'pt-br': 'Borboleta Floral'     }, type: 'coloridas',      src: '/images/portfolio/color-delicate-floral-butterfly-tattoo-art.webp.webp' },
+  { id: 8,  title: { en: 'Snake — Trust No One',   'pt-br': 'Cobra — Trust No One' }, type: 'black and white', src: '/images/portfolio/bw-winding-snake-tattoo-trust-no-one-quote-hand.webp.webp' },
+  { id: 9,  title: { en: 'Little Prince',          'pt-br': 'Pequeno Príncipe'     }, type: 'coloridas',      src: '/images/portfolio/color-little-prince-fox-rose-tattoo-watercolor-starry-sky-heitor-13-03-2023.webp.webp' },
+  { id: 10, title: { en: 'Cat Portrait',           'pt-br': 'Retrato de Gato'      }, type: 'coloridas',      src: '/images/portfolio/color-realistic-cat-portrait-tattoo.webp.webp' },
+  { id: 11, title: { en: 'Realistic Sunflower',    'pt-br': 'Girassol Realista'    }, type: 'coloridas',      src: '/images/portfolio/color-realistic-color-sunflower-tattoo-on-calf.webp.webp' },
+  { id: 12, title: { en: 'Jungle Leopard',         'pt-br': 'Leopardo na Selva'    }, type: 'coloridas',      src: '/images/portfolio/color-realistic-leopard-tattoo-jungle-sleeve.webp.webp' },
+  { id: 13, title: { en: 'Pink Rose',              'pt-br': 'Rosa Rosa'            }, type: 'coloridas',      src: '/images/portfolio/color-realistic-pink-rose-tattoo.webp.webp' },
+  { id: 14, title: { en: 'Couple Portrait',        'pt-br': 'Retrato Casal'        }, type: 'coloridas',      src: '/images/portfolio/color-realistic-portrait-tattoo-elderly-couple-chest.webp.webp' },
+  { id: 15, title: { en: 'Rainbow Dash',           'pt-br': 'Rainbow Dash'         }, type: 'coloridas',      src: '/images/portfolio/color-sleeping-rainbow-dash-mlp-tattoo-in-rainbow-heart.webp.webp' },
+  { id: 16, title: { en: 'Tony the Tiger',         'pt-br': 'Tony the Tiger'       }, type: 'coloridas',      src: '/images/portfolio/color-tony-the-tiger-frosted-flakes-tattoo.webp.webp' },
+];
+
+const rawCoverupItems = [
+  { id: 1, title: { en: 'Cover-up 1', 'pt-br': 'Cobertura 1' }, before: '/images/portfolio/coverups/c1-bf-upper-back-tattoos-skull-roses-geometric-star-ch-initials-red-accents.webp.webp',    after: '/images/portfolio/coverups/c1-af-colorful-wolves-and-floral-back-tattoo-with-cardinal-dove-and-butterflies.webp.webp' },
+  { id: 2, title: { en: 'Cover-up 2', 'pt-br': 'Cobertura 2' }, before: '/images/portfolio/coverups/c2-bf-colorful-japanese-koi-fish-lotus-rib-tattoo.webp.webp',                              after: '/images/portfolio/coverups/c2-af-realistic-leopard-rib-tattoo-blue-eyes-butterfly-daisies.webp.webp' },
+  { id: 3, title: { en: 'Cover-up 3', 'pt-br': 'Cobertura 3' }, before: '/images/portfolio/coverups/c3-bf-leandra-kevin-names-tattoo-with-heart-crown-script-shoulder.webp.webp',              after: '/images/portfolio/coverups/c3-af-two-vibrant-blue-roses-green-leaves-shoulder-tattoo.webp.webp' },
+  { id: 4, title: { en: 'Cover-up 4', 'pt-br': 'Cobertura 4' }, before: '/images/portfolio/coverups/c4-bf-scar-camouflage-tattoo-upper-arm.webp.webp',                                        after: '/images/portfolio/coverups/c4-af-lioness-and-cub-tattoo-with-red-flowers.webp.webp' },
+];
+
+// Resolve titles for the current language
+const tattooItems = rawTattooItems.map(item => ({ ...item, title: item.title[lang] ?? item.title['pt-br'] }));
+const coverupItems = rawCoverupItems.map(item => ({ ...item, title: item.title[lang] ?? item.title['pt-br'] }));
+---
+
+<section id="portfolio" class="py-24 lg:py-32 bg-blush">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12 reveal">
+      <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl text-plum mb-4">
+        {t.portfolio.title}
+      </h2>
+    </div>
+
+    <!-- Main Tabs -->
+    <div class="flex justify-center gap-2 mb-10">
+      <button
+        class="portfolio-tab active px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200"
+        data-tab="tattoos"
+      >
+        {t.portfolio.tab_tattoos}
+      </button>
+      <button
+        class="portfolio-tab px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200"
+        data-tab="coverups"
+      >
+        {t.portfolio.tab_coverups}
+      </button>
+    </div>
+
+    <!-- Tattoos Panel -->
+    <div id="panel-tattoos" class="portfolio-panel">
+      <!-- Sub-filters -->
+      <div class="flex justify-center gap-2 mb-8">
+        <button class="filter-btn active" data-filter="all">{t.portfolio.filter_all}</button>
+        <button class="filter-btn" data-filter="coloridas">{t.portfolio.filter_color}</button>
+        <button class="filter-btn" data-filter="black and white">{t.portfolio.filter_bw}</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="tattoo-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        {tattooItems.map((item, index) => (
+          <div
+            class="portfolio-item reveal"
+            data-type={item.type}
+            style={`transition-delay: ${index * 50}ms`}
+          >
+            <div
+              class="group relative overflow-hidden rounded-xl cursor-pointer aspect-[3/4]"
+              data-lightbox-trigger
+              data-index={index}
+              data-panel="tattoos"
+            >
+              {item.src ? (
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="w-full h-full bg-gradient-to-br from-lilac to-lavender flex items-center justify-center">
+                  <span class="text-mauve/40 font-heading text-sm text-center px-2">{item.title}</span>
+                </div>
+              )}
+              <div class="absolute inset-0 bg-plum/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="font-heading text-base text-blush transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 text-center px-2">
+                  {item.title}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Cover-ups Panel -->
+    <div id="panel-coverups" class="portfolio-panel hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {coverupItems.map((item, index) => (
+          <div
+            class="coverup-item reveal"
+            style={`transition-delay: ${index * 80}ms`}
+            data-index={index}
+            data-lightbox-coverup
+          >
+            <div class="relative overflow-hidden rounded-xl cursor-pointer aspect-[3/4] group">
+              <!-- Before image -->
+              <div class="coverup-before absolute inset-0 transition-opacity duration-700">
+                {item.before ? (
+                  <img src={item.before} alt={`${item.title} before`} class="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-lilac/60 to-lavender flex items-center justify-center">
+                    <span class="text-mauve/40 font-heading text-sm">{item.title} — Before</span>
+                  </div>
+                )}
+                <span class="absolute bottom-3 left-3 bg-plum/70 text-blush text-xs font-medium px-2 py-1 rounded-full">
+                  {t.portfolio.before}
+                </span>
+              </div>
+
+              <!-- After image -->
+              <div class="coverup-after absolute inset-0 opacity-0 transition-opacity duration-700">
+                {item.after ? (
+                  <img src={item.after} alt={`${item.title} after`} class="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-magenta/20 to-lilac flex items-center justify-center">
+                    <span class="text-plum/60 font-heading text-sm">{item.title} — After</span>
+                  </div>
+                )}
+                <span class="absolute bottom-3 left-3 bg-magenta/80 text-blush text-xs font-medium px-2 py-1 rounded-full">
+                  {t.portfolio.after}
+                </span>
+              </div>
+
+              <!-- Hover hint -->
+              <div class="absolute inset-0 bg-plum/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="text-blush text-sm font-medium">View both</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox for tattoos -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-plum/95 backdrop-blur-sm" id="lightbox-backdrop"></div>
+    <div class="relative w-full h-full flex items-center justify-center p-4">
+      <button id="lightbox-close" class="absolute top-4 right-4 p-2 text-blush/70 hover:text-blush transition-colors z-10" aria-label="Close">
+        <X class="w-8 h-8" />
+      </button>
+      <button id="lightbox-prev" class="absolute left-4 p-2 text-blush/70 hover:text-blush transition-colors" aria-label="Previous">
+        <ChevronLeft class="w-10 h-10" />
+      </button>
+      <button id="lightbox-next" class="absolute right-4 p-2 text-blush/70 hover:text-blush transition-colors" aria-label="Next">
+        <ChevronRight class="w-10 h-10" />
+      </button>
+      <div id="lightbox-content" class="max-w-2xl max-h-[85vh]">
+        <div class="aspect-[3/4] w-full bg-gradient-to-br from-lilac to-lavender rounded-xl flex items-center justify-center" style="min-width: 280px;" id="lightbox-img-wrap">
+        </div>
+        <div class="text-center mt-4">
+          <h3 class="font-heading text-xl text-blush" id="lightbox-title">Work 1</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox for cover-ups (before/after side by side) -->
+  <div id="coverup-lightbox" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-plum/95 backdrop-blur-sm" id="coverup-lightbox-backdrop"></div>
+    <div class="relative w-full h-full flex items-center justify-center p-4">
+      <button id="coverup-lightbox-close" class="absolute top-4 right-4 p-2 text-blush/70 hover:text-blush transition-colors z-10" aria-label="Close">
+        <X class="w-8 h-8" />
+      </button>
+      <div class="max-w-4xl w-full">
+        <div class="grid grid-cols-2 gap-4 max-h-[80vh]">
+          <div>
+            <div class="aspect-[3/4] bg-gradient-to-br from-lilac/60 to-lavender rounded-xl flex items-center justify-center" id="coverup-lb-before">
+              <span class="text-mauve/40 font-heading text-sm">Before</span>
+            </div>
+            <p class="text-center text-blush/70 text-sm mt-2" id="coverup-lb-before-label"></p>
+          </div>
+          <div>
+            <div class="aspect-[3/4] bg-gradient-to-br from-magenta/20 to-lilac rounded-xl flex items-center justify-center" id="coverup-lb-after">
+              <span class="text-plum/60 font-heading text-sm">After</span>
+            </div>
+            <p class="text-center text-blush/70 text-sm mt-2" id="coverup-lb-after-label"></p>
+          </div>
+        </div>
+        <h3 class="font-heading text-xl text-blush text-center mt-4" id="coverup-lb-title"></h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio-tab {
+    color: var(--color-mauve, #8B6B82);
+    background: transparent;
+    border: 2px solid transparent;
+  }
+
+  .portfolio-tab.active {
+    background: var(--color-magenta, #B33E78);
+    color: var(--color-blush, #FDF6F9);
+    border-color: var(--color-magenta, #B33E78);
+  }
+
+  .portfolio-tab:not(.active):hover {
+    border-color: var(--color-lilac, #C9B8D0);
+    color: var(--color-plum, #3D2638);
+  }
+
+  .filter-btn {
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 2px solid transparent;
+    color: var(--color-mauve, #8B6B82);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-lilac, #C9B8D0);
+    color: var(--color-plum, #3D2638);
+  }
+
+  .filter-btn.active {
+    border-color: var(--color-plum, #3D2638);
+    color: var(--color-plum, #3D2638);
+    background: rgba(61, 38, 56, 0.07);
+  }
+
+  .portfolio-item.hidden-filter {
+    display: none;
+  }
+</style>
+
+<script define:vars={{ tattooItems, coverupItems }}>
+  // Tab switching
+  const tabs = document.querySelectorAll('.portfolio-tab');
+  const panels = document.querySelectorAll('.portfolio-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      panels.forEach(p => p.classList.add('hidden'));
+      document.getElementById(`panel-${target}`)?.classList.remove('hidden');
+    });
+  });
+
+  // Tattoo filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.portfolio-item').forEach(item => {
+        if (filter === 'all' || item.getAttribute('data-type') === filter) {
+          item.classList.remove('hidden-filter');
+        } else {
+          item.classList.add('hidden-filter');
+        }
+      });
+    });
+  });
+
+  // Cover-up auto-cycling
+  const coverupCardEls = document.querySelectorAll('.coverup-item');
+  coverupCardEls.forEach((card) => {
+    const beforeEl = card.querySelector('.coverup-before');
+    const afterEl = card.querySelector('.coverup-after');
+    if (!beforeEl || !afterEl) return;
+
+    let showingAfter = false;
+    setInterval(() => {
+      showingAfter = !showingAfter;
+      beforeEl.style.opacity = showingAfter ? '0' : '1';
+      afterEl.style.opacity = showingAfter ? '1' : '0';
+    }, 2500);
+  });
+
+  // Lightbox for tattoos
+  const lightbox = document.getElementById('lightbox');
+  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxImgWrap = document.getElementById('lightbox-img-wrap');
+
+  // Index into tattooItems array (not position in visible list)
+  let currentItemIndex = 0;
+
+  function getVisibleIndices() {
+    return Array.from(document.querySelectorAll('.portfolio-item:not(.hidden-filter) [data-index]'))
+      .map(el => parseInt(el.getAttribute('data-index') ?? '-1'))
+      .filter(i => i >= 0);
+  }
+
+  function openLightbox(itemIdx) {
+    currentItemIndex = itemIdx;
+    updateLightbox();
+    lightbox.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightbox() {
+    const item = tattooItems[currentItemIndex];
+    if (!item) return;
+    lightboxTitle.textContent = item.title;
+    lightboxImgWrap.innerHTML = `<img src="${item.src}" alt="${item.title}" class="w-full h-full object-contain rounded-xl max-h-[75vh]" />`;
+  }
+
+  function navigate(dir) {
+    const visible = getVisibleIndices();
+    const pos = visible.indexOf(currentItemIndex);
+    currentItemIndex = visible[(pos + dir + visible.length) % visible.length];
+    updateLightbox();
+  }
+
+  document.querySelectorAll('[data-lightbox-trigger]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const idx = parseInt(trigger.getAttribute('data-index') ?? '0');
+      openLightbox(idx);
+    });
+  });
+
+  lightboxBackdrop?.addEventListener('click', closeLightbox);
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightboxPrev?.addEventListener('click', () => navigate(-1));
+  lightboxNext?.addEventListener('click', () => navigate(1));
+
+  // Lightbox for cover-ups
+  const coverupLightbox = document.getElementById('coverup-lightbox');
+  const coverupLbBackdrop = document.getElementById('coverup-lightbox-backdrop');
+  const coverupLbClose = document.getElementById('coverup-lightbox-close');
+  const coverupLbTitle = document.getElementById('coverup-lb-title');
+  const coverupLbBefore = document.getElementById('coverup-lb-before');
+  const coverupLbAfter = document.getElementById('coverup-lb-after');
+  const coverupLbBeforeLabel = document.getElementById('coverup-lb-before-label');
+  const coverupLbAfterLabel = document.getElementById('coverup-lb-after-label');
+
+  document.querySelectorAll('[data-lightbox-coverup]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const index = parseInt(card.getAttribute('data-index') || '0');
+      const item = coverupItems[index];
+      if (!item) return;
+      coverupLbTitle.textContent = item.title;
+      if (item.before) {
+        coverupLbBefore.innerHTML = `<img src="${item.before}" alt="Before" class="w-full h-full object-cover rounded-xl" />`;
+      }
+      if (item.after) {
+        coverupLbAfter.innerHTML = `<img src="${item.after}" alt="After" class="w-full h-full object-cover rounded-xl" />`;
+      }
+      coverupLbBeforeLabel.textContent = 'Before';
+      coverupLbAfterLabel.textContent = 'After';
+      coverupLightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeCoverupLightbox() {
+    coverupLightbox.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  coverupLbBackdrop?.addEventListener('click', closeCoverupLightbox);
+  coverupLbClose?.addEventListener('click', closeCoverupLightbox);
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox?.classList.contains('hidden')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    }
+    if (!coverupLightbox?.classList.contains('hidden')) {
+      if (e.key === 'Escape') closeCoverupLightbox();
+    }
+  });
+</script>

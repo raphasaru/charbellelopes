@@ -1,0 +1,412 @@
+---
+import { Upload, Loader2 } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+
+const preferredDays = [
+  { key: 'day_mon', value: 'mon' },
+  { key: 'day_tue', value: 'tue' },
+  { key: 'day_thu', value: 'thu' },
+  { key: 'day_fri', value: 'fri' },
+  { key: 'day_sat', value: 'sat' },
+];
+---
+
+<section id="contact" class="py-24 lg:py-32 bg-blush">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12 reveal">
+      <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl text-plum mb-4">
+        {t.contact.title}
+      </h2>
+      <p class="text-mauve text-base md:text-lg">
+        {t.contact.subtitle}
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form id="contact-form" class="space-y-6 reveal">
+
+      <!-- Name row -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-plum mb-2">
+            {t.contact.first_name} <span class="text-magenta">*</span>
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+          />
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-plum mb-2">
+            {t.contact.last_name} <span class="text-magenta">*</span>
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-plum mb-2">
+          {t.contact.email} <span class="text-magenta">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+        />
+      </div>
+
+      <!-- Phone + Instagram row -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="phone" class="block text-sm font-medium text-plum mb-2">
+            {t.contact.phone} <span class="text-magenta">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+          />
+        </div>
+        <div>
+          <label for="instagram" class="block text-sm font-medium text-plum mb-2">
+            {t.contact.instagram}
+            <span class="text-mauve/50 font-normal ml-1">(optional)</span>
+          </label>
+          <input
+            type="text"
+            id="instagram"
+            name="instagram"
+            placeholder={t.contact.instagram_placeholder}
+            class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Tattoo Type Selector -->
+      <div>
+        <label class="block text-sm font-medium text-plum mb-3">
+          {t.contact.tattoo_type} <span class="text-magenta">*</span>
+        </label>
+        <div class="flex gap-3">
+          <label class="tattoo-type-label flex-1">
+            <input type="radio" name="tattooType" value="new" class="sr-only" required />
+            <span class="tattoo-type-btn block text-center px-4 py-3 rounded-lg border-2 border-lilac bg-white/50 text-plum font-medium cursor-pointer transition-all duration-200 hover:border-magenta/50">
+              {t.contact.type_new}
+            </span>
+          </label>
+          <label class="tattoo-type-label flex-1">
+            <input type="radio" name="tattooType" value="coverup" class="sr-only" />
+            <span class="tattoo-type-btn block text-center px-4 py-3 rounded-lg border-2 border-lilac bg-white/50 text-plum font-medium cursor-pointer transition-all duration-200 hover:border-magenta/50">
+              {t.contact.type_coverup}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tattoo Idea -->
+      <div>
+        <label for="tattooIdea" class="block text-sm font-medium text-plum mb-2">
+          {t.contact.tattoo_idea} <span class="text-magenta">*</span>
+        </label>
+        <textarea
+          id="tattooIdea"
+          name="tattooIdea"
+          rows="4"
+          required
+          placeholder={t.contact.tattoo_idea_placeholder}
+          class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200 resize-none"
+        ></textarea>
+      </div>
+
+      <!-- New Tattoo fields (shown by default) -->
+      <div id="new-tattoo-fields">
+        <!-- Size -->
+        <div class="mb-6">
+          <label for="size" class="block text-sm font-medium text-plum mb-2">
+            {t.contact.size}
+          </label>
+          <input
+            type="text"
+            id="size"
+            name="size"
+            placeholder={t.contact.size_placeholder}
+            class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200"
+          />
+        </div>
+
+        <!-- Inspiration Images -->
+        <div>
+          <label class="block text-sm font-medium text-plum mb-2">
+            {t.contact.inspiration}
+            <span class="text-mauve/60 font-normal ml-2">({t.contact.inspiration_hint})</span>
+          </label>
+          <div
+            id="drop-zone"
+            class="relative border-2 border-dashed border-lilac rounded-lg p-8 text-center hover:border-magenta/50 transition-colors duration-200 cursor-pointer"
+          >
+            <input
+              type="file"
+              id="inspiration"
+              name="inspiration"
+              accept="image/*"
+              multiple
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <Upload class="w-10 h-10 text-mauve/50 mx-auto mb-2" />
+            <p class="text-mauve/70 text-sm">
+              {lang === 'pt-br' ? 'Arraste imagens ou clique para selecionar' : 'Drag images or click to select'}
+            </p>
+          </div>
+          <div id="preview-container" class="flex flex-wrap gap-3 mt-4"></div>
+        </div>
+      </div>
+
+      <!-- Cover-up fields (hidden by default) -->
+      <div id="coverup-fields" class="hidden">
+        <!-- Current tattoo/scar photo -->
+        <div>
+          <label class="block text-sm font-medium text-plum mb-2">
+            {t.contact.current_tattoo}
+            <span class="text-mauve/60 font-normal ml-2">({t.contact.current_tattoo_hint})</span>
+          </label>
+          <div
+            id="coverup-drop-zone"
+            class="relative border-2 border-dashed border-lilac rounded-lg p-8 text-center hover:border-magenta/50 transition-colors duration-200 cursor-pointer"
+          >
+            <input
+              type="file"
+              id="currentTattoo"
+              name="currentTattoo"
+              accept="image/*"
+              multiple
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <Upload class="w-10 h-10 text-mauve/50 mx-auto mb-2" />
+            <p class="text-mauve/70 text-sm">
+              {lang === 'pt-br' ? 'Arraste imagens ou clique para selecionar' : 'Drag images or click to select'}
+            </p>
+          </div>
+          <div id="coverup-preview-container" class="flex flex-wrap gap-3 mt-4"></div>
+        </div>
+      </div>
+
+      <!-- Preferred Days -->
+      <div>
+        <label class="block text-sm font-medium text-plum mb-3">
+          {t.contact.preferred_days}
+        </label>
+        <div class="flex flex-wrap gap-2">
+          {preferredDays.map(day => (
+            <label class="day-label">
+              <input type="checkbox" name="preferredDays" value={day.value} class="sr-only" />
+              <span class="day-btn block px-4 py-2 rounded-full border-2 border-lilac bg-white/50 text-sm text-plum font-medium cursor-pointer transition-all duration-200 hover:border-magenta/50">
+                {t.contact[day.key]}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Additional Notes -->
+      <div>
+        <label for="comments" class="block text-sm font-medium text-plum mb-2">
+          {t.contact.comments}
+        </label>
+        <textarea
+          id="comments"
+          name="comments"
+          rows="3"
+          placeholder={t.contact.comments_placeholder}
+          class="w-full px-4 py-3 rounded-lg border border-lilac bg-white/50 text-plum placeholder:text-mauve/50 focus:outline-none focus:ring-2 focus:ring-magenta/30 focus:border-magenta transition-all duration-200 resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="pt-4">
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full sm:w-auto px-10 py-4 bg-magenta text-blush font-medium rounded-full hover:bg-magenta/90 focus:outline-none focus:ring-2 focus:ring-magenta/50 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          <span id="submit-text">{t.contact.submit}</span>
+          <Loader2 class="w-5 h-5 animate-spin hidden" id="submit-loader" />
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .tattoo-type-label input:checked + .tattoo-type-btn {
+    border-color: var(--color-magenta);
+    background-color: rgba(179, 62, 120, 0.08);
+    color: var(--color-magenta, #B33E78);
+  }
+
+  .day-label input:checked + .day-btn {
+    border-color: var(--color-magenta);
+    background-color: rgba(179, 62, 120, 0.08);
+    color: var(--color-magenta, #B33E78);
+  }
+</style>
+
+<script define:vars={{ t }}>
+  // Tattoo type toggle
+  const typeInputs = document.querySelectorAll('input[name="tattooType"]');
+  const newTattooFields = document.getElementById('new-tattoo-fields');
+  const coverupFields = document.getElementById('coverup-fields');
+
+  typeInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      const isCoverup = input.value === 'coverup';
+      newTattooFields?.classList.toggle('hidden', isCoverup);
+      coverupFields?.classList.toggle('hidden', !isCoverup);
+    });
+  });
+
+  // File handling - inspiration
+  const fileInput = document.getElementById('inspiration');
+  const dropZone = document.getElementById('drop-zone');
+  const previewContainer = document.getElementById('preview-container');
+  let selectedFiles = [];
+  const MAX_FILES = 5;
+
+  function updatePreviews(files, container) {
+    if (!container) return;
+    container.innerHTML = '';
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const preview = document.createElement('div');
+        preview.className = 'relative group';
+        preview.innerHTML = `
+          <img src="${e.target?.result}" alt="Preview ${index + 1}" class="w-20 h-20 object-cover rounded-lg" />
+          <button type="button" class="remove-preview absolute -top-2 -right-2 w-6 h-6 bg-magenta text-blush rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" data-index="${index}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        `;
+        container.appendChild(preview);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function handleFiles(files) {
+    const newFiles = Array.from(files).slice(0, MAX_FILES - selectedFiles.length);
+    selectedFiles = [...selectedFiles, ...newFiles].slice(0, MAX_FILES);
+    updatePreviews(selectedFiles, previewContainer);
+  }
+
+  fileInput?.addEventListener('change', (e) => {
+    if (e.target.files) handleFiles(e.target.files);
+  });
+
+  dropZone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('border-magenta');
+  });
+  dropZone?.addEventListener('dragleave', () => dropZone.classList.remove('border-magenta'));
+  dropZone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('border-magenta');
+    if (e.dataTransfer?.files) handleFiles(e.dataTransfer.files);
+  });
+
+  previewContainer?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.remove-preview');
+    if (btn) {
+      const index = parseInt(btn.getAttribute('data-index') || '0');
+      selectedFiles.splice(index, 1);
+      updatePreviews(selectedFiles, previewContainer);
+    }
+  });
+
+  // File handling - cover-up
+  const coverupFileInput = document.getElementById('currentTattoo');
+  const coverupDropZone = document.getElementById('coverup-drop-zone');
+  const coverupPreviewContainer = document.getElementById('coverup-preview-container');
+  let coverupFiles = [];
+  const MAX_COVERUP = 3;
+
+  function handleCoverupFiles(files) {
+    const newFiles = Array.from(files).slice(0, MAX_COVERUP - coverupFiles.length);
+    coverupFiles = [...coverupFiles, ...newFiles].slice(0, MAX_COVERUP);
+    updatePreviews(coverupFiles, coverupPreviewContainer);
+  }
+
+  coverupFileInput?.addEventListener('change', (e) => {
+    if (e.target.files) handleCoverupFiles(e.target.files);
+  });
+  coverupDropZone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    coverupDropZone.classList.add('border-magenta');
+  });
+  coverupDropZone?.addEventListener('dragleave', () => coverupDropZone.classList.remove('border-magenta'));
+  coverupDropZone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    coverupDropZone.classList.remove('border-magenta');
+    if (e.dataTransfer?.files) handleCoverupFiles(e.dataTransfer.files);
+  });
+
+  coverupPreviewContainer?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.remove-preview');
+    if (btn) {
+      const index = parseInt(btn.getAttribute('data-index') || '0');
+      coverupFiles.splice(index, 1);
+      updatePreviews(coverupFiles, coverupPreviewContainer);
+    }
+  });
+
+  // Form submission
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitText = document.getElementById('submit-text');
+  const submitLoader = document.getElementById('submit-loader');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn?.setAttribute('disabled', 'true');
+    submitText?.classList.add('hidden');
+    submitLoader?.classList.remove('hidden');
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    form.reset();
+    selectedFiles = [];
+    coverupFiles = [];
+    updatePreviews(selectedFiles, previewContainer);
+    updatePreviews(coverupFiles, coverupPreviewContainer);
+
+    // Reset type toggle
+    newTattooFields?.classList.remove('hidden');
+    coverupFields?.classList.add('hidden');
+
+    submitBtn?.removeAttribute('disabled');
+    submitText?.classList.remove('hidden');
+    submitLoader?.classList.add('hidden');
+
+    alert(t.contact.submit === 'Enviar Solicitação' ? 'Mensagem enviada com sucesso!' : 'Message sent successfully!');
+  });
+</script>

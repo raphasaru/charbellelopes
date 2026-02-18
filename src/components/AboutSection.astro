@@ -1,0 +1,75 @@
+---
+import { Award, Calendar, Star } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+
+const stats = [
+  { icon: Calendar, label: t.about.stat_since },
+  { icon: Award, label: t.about.stat_awards },
+  { icon: Star, label: t.about.stat_judge },
+];
+---
+
+<section id="about" class="relative py-24 lg:py-32 bg-lavender overflow-hidden">
+  <!-- Organic shapes -->
+  <div class="absolute top-0 right-0 w-64 h-64 bg-lilac/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-80 h-80 bg-peach/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+      <!-- Image (40%) -->
+      <div class="lg:col-span-2 reveal">
+        <div class="relative">
+          <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-lilac">
+            <img
+              src="/images/about/charbelle-aboutme.png"
+              alt="Charbelle Lopes"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <!-- Decorative frame -->
+          <div class="absolute -inset-4 border-2 border-magenta/20 rounded-2xl -z-10"></div>
+        </div>
+      </div>
+
+      <!-- Content (60%) -->
+      <div class="lg:col-span-3 space-y-8">
+        <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl text-plum reveal">
+          {t.about.title}
+        </h2>
+
+        <p class="text-base md:text-lg text-mauve leading-relaxed reveal">
+          {t.about.bio}
+        </p>
+
+        <!-- Pull quote -->
+        <blockquote class="relative pl-6 border-l-4 border-magenta reveal">
+          <p class="text-xl font-heading italic text-plum/80">
+            {t.about.quote}
+          </p>
+        </blockquote>
+
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-6 pt-4">
+          {stats.map((stat, index) => (
+            <div
+              class="flex items-center gap-3 reveal"
+              style={`transition-delay: ${index * 100}ms`}
+            >
+              <div class="w-12 h-12 rounded-full bg-magenta/10 flex items-center justify-center">
+                <stat.icon class="w-5 h-5 text-magenta" />
+              </div>
+              <span class="font-medium text-plum">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

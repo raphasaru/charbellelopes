@@ -1,0 +1,112 @@
+---
+import { MessageSquare, CalendarCheck, Palette, Heart } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+
+const steps = [
+  { icon: MessageSquare, title: t.process.step1_title, desc: t.process.step1_desc },
+  { icon: CalendarCheck, title: t.process.step2_title, desc: t.process.step2_desc },
+  { icon: Palette, title: t.process.step3_title, desc: t.process.step3_desc },
+  { icon: Heart, title: t.process.step4_title, desc: t.process.step4_desc },
+];
+---
+
+<section id="process" class="py-24 lg:py-32 bg-lavender overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl text-plum">
+        {t.process.title}
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Horizontal line (desktop) -->
+      <div class="hidden lg:block absolute top-8 h-0.5 bg-lilac" style="left: 12.5%; right: 12.5%;">
+        <div class="timeline-progress absolute top-0 left-0 h-full bg-magenta w-0 transition-all duration-1000"></div>
+      </div>
+
+      <!-- Vertical line (mobile) -->
+      <div class="lg:hidden absolute top-0 bottom-0 left-8 w-0.5 bg-lilac">
+        <div class="timeline-progress-mobile absolute top-0 left-0 w-full bg-magenta h-0 transition-all duration-1000"></div>
+      </div>
+
+      <!-- Steps -->
+      <div class="relative grid lg:grid-cols-4 gap-8 lg:gap-4">
+        {steps.map((step, index) => (
+          <div
+            class="process-step flex lg:flex-col items-start lg:items-center gap-6 lg:gap-4 pl-20 lg:pl-0 reveal"
+            style={`transition-delay: ${index * 150}ms`}
+            data-step={index}
+          >
+            <!-- Icon circle -->
+            <div class="absolute lg:relative left-0 lg:left-auto flex-shrink-0">
+              <div class="w-16 h-16 rounded-full bg-blush border-4 border-lilac flex items-center justify-center transition-all duration-500 process-icon">
+                <step.icon class="w-6 h-6 text-mauve transition-colors duration-500" />
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="lg:text-center pt-1 lg:pt-4">
+              <h3 class="font-heading text-xl text-plum mb-2">{step.title}</h3>
+              <p class="text-sm text-mauve">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Optional consultation note -->
+    <p class="text-center text-sm text-mauve/70 italic mt-12 max-w-xl mx-auto reveal">
+      * {t.process.consultation_note}
+    </p>
+  </div>
+</section>
+
+<style>
+  .process-step.active .process-icon {
+    border-color: var(--color-magenta);
+    background-color: var(--color-magenta);
+  }
+
+  .process-step.active .process-icon svg {
+    color: var(--color-blush);
+  }
+</style>
+
+<script>
+  const processSection = document.getElementById('process');
+  const processSteps = document.querySelectorAll('.process-step');
+  const timelineProgress = document.querySelector('.timeline-progress');
+  const timelineProgressMobile = document.querySelector('.timeline-progress-mobile');
+
+  const processObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (timelineProgress instanceof HTMLElement) {
+          timelineProgress.style.width = '100%';
+        }
+        if (timelineProgressMobile instanceof HTMLElement) {
+          timelineProgressMobile.style.height = '100%';
+        }
+
+        processSteps.forEach((step, index) => {
+          setTimeout(() => {
+            step.classList.add('active');
+          }, index * 300);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (processSection) {
+    processObserver.observe(processSection);
+  }
+</script>

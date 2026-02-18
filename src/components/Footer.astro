@@ -1,0 +1,85 @@
+---
+import { Instagram, MapPin, Mail, Phone } from '@lucide/astro';
+import type { Language } from '../i18n/utils';
+
+interface Props {
+  lang: Language;
+  t: any;
+}
+
+const { lang, t } = Astro.props;
+const basePath = lang === 'pt-br' ? '/pt-br' : '';
+const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { href: `${basePath}/#about`, label: t.nav.about },
+  { href: `${basePath}/#portfolio`, label: t.nav.portfolio },
+  { href: `${basePath}/#process`, label: t.nav.process },
+  { href: `${basePath}/#contact`, label: t.nav.contact },
+];
+---
+
+<footer class="bg-plum text-blush/80 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <!-- Logo -->
+      <div>
+        <img
+          src="/images/logo-charbelle.png"
+          alt="Charbelle Lopes"
+          class="h-14 w-auto mb-6 brightness-0 invert opacity-90"
+        />
+        <p class="text-sm text-blush/50">{t.footer.location}</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-heading text-xl text-blush mb-4">Links</h4>
+        <nav class="flex flex-col gap-2">
+          {quickLinks.map(link => (
+            <a
+              href={link.href}
+              class="text-sm hover:text-magenta-light transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- Contact & Follow -->
+      <div>
+        <h4 class="font-heading text-xl text-blush mb-4">{t.footer.contact_title}</h4>
+        <div class="flex flex-col gap-3">
+          <a
+            href="mailto:charbellelopes@gmail.com"
+            class="flex items-center gap-2 text-sm hover:text-magenta-light transition-colors duration-200"
+          >
+            <Mail class="w-4 h-4 text-magenta-light flex-shrink-0" />
+            <span>charbellelopes@gmail.com</span>
+          </a>
+          <div class="flex items-center gap-2 text-sm">
+            <MapPin class="w-4 h-4 text-magenta-light flex-shrink-0" />
+            <span>Abington, MA</span>
+          </div>
+          <a
+            href="https://instagram.com/charbellelopes"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 text-sm hover:text-magenta-light transition-colors duration-200"
+          >
+            <Instagram class="w-4 h-4 text-magenta-light flex-shrink-0" />
+            <span>Instagram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="pt-8 border-t border-blush/10 text-center text-sm">
+      <p>
+        &copy; {currentYear} Charbelle Lopes. {t.footer.rights}.
+      </p>
+    </div>
+  </div>
+</footer>

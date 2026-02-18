@@ -1,23 +1,66 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getLangFromUrl, getTranslations, type Language } from '../i18n/utils';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = getTranslations(lang);
+
+const {
+  title = 'Charbelle Lopes | Tattoo Artist',
+  description = 'Professional tattoo artist specializing in realism, pet portraits, and cover-ups. Based in Abington, MA.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang === 'pt-br' ? 'pt-BR' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+    <meta name="view-transition" content="same-origin" />
+  </head>
+  <body class="antialiased">
+    <Navbar lang={lang} t={t} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} t={t} />
+
+    <script>
+      // Scroll reveal observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Language preference
+      const savedLang = localStorage.getItem('preferred-lang');
+      const currentPath = window.location.pathname;
+      const isPortuguese = currentPath.startsWith('/pt-br');
+
+      if (savedLang === 'pt-br' && !isPortuguese) {
+        // User prefers PT-BR but is on EN page - don't auto-redirect, let them choose
+      } else if (savedLang === 'en' && isPortuguese) {
+        // User prefers EN but is on PT-BR page - don't auto-redirect
+      }
+    </script>
+  </body>
+</html>

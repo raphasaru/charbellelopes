@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "portfolio": "Portfólio",
+    "process": "Processo",
+    "contact": "Contato"
+  },
+  "hero": {
+    "name": "CHARBELLE LOPES",
+    "subtitle": "Realismo | Pets | Cover-up",
+    "tagline": "Transformando pele em histórias",
+    "cta_portfolio": "Ver Portfólio",
+    "cta_book": "Agendar Sessão"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "bio": "Sou Charbelle Lopes, tatuadora em Abington, MA, especializada em realismo, retratos de pets e cover-ups. Cada peça que crio é uma colaboração entre sua história e minha arte, transformando momentos significativos em obras permanentes na sua pele.",
+    "quote": "\"A arte não é o que você vê, mas o que você faz os outros verem.\"",
+    "stat_since": "Desde 2018",
+    "stat_awards": "5 Prêmios",
+    "stat_judge": "Jurada Tattoo Week"
+  },
+  "portfolio": {
+    "title": "Portfólio",
+    "tab_tattoos": "Tatuagens",
+    "tab_coverups": "Cover-ups",
+    "filter_all": "Todos",
+    "filter_color": "Colorido",
+    "filter_bw": "Preto e Branco",
+    "before": "Antes",
+    "after": "Depois",
+    "see_more": "Ver mais no Instagram"
+  },
+  "process": {
+    "title": "Como Funciona",
+    "step1_title": "Contato",
+    "step1_desc": "Preencha o formulário com sua ideia e imagens de inspiração",
+    "step2_title": "Agendamento",
+    "step2_desc": "Entrarei em contato por e-mail em até 7 dias úteis com datas disponíveis",
+    "step3_title": "Design & Sessão",
+    "step3_desc": "Seu design personalizado é criado no dia da sua sessão",
+    "step4_title": "Cuidados",
+    "step4_desc": "Orientações completas de cicatrização",
+    "consultation_note": "Para projetos complexos ou cover-ups, uma consulta presencial opcional pode ser agendada antes da sessão."
+  },
+  "contact": {
+    "title": "Conte-me Sobre Sua Ideia de Tatuagem",
+    "subtitle": "Primeiro contato por e-mail — resposta em até 7 dias úteis.",
+    "first_name": "Nome",
+    "last_name": "Sobrenome",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "instagram": "Instagram",
+    "instagram_placeholder": "@seuhandle",
+    "tattoo_type": "O que você está buscando?",
+    "type_new": "Tatuagem Nova",
+    "type_coverup": "Cover-up / Cicatriz",
+    "tattoo_idea": "Conte-me sobre sua ideia",
+    "tattoo_idea_placeholder": "Descreva sua ideia, preferências de estilo e elementos significativos...",
+    "size": "Tamanho Aproximado",
+    "size_placeholder": "ex: 10x15 cm",
+    "inspiration": "Imagens de Inspiração",
+    "inspiration_hint": "Máximo 5 imagens",
+    "current_tattoo": "Foto da Tatuagem / Cicatriz Atual",
+    "current_tattoo_hint": "Envie uma foto da área a ser coberta",
+    "preferred_days": "Dias da Semana Preferidos",
+    "day_mon": "Segunda",
+    "day_tue": "Terça",
+    "day_thu": "Quinta",
+    "day_fri": "Sexta",
+    "day_sat": "Sábado",
+    "comments": "Observações Adicionais",
+    "comments_placeholder": "Algum outro detalhe que gostaria de compartilhar...",
+    "submit": "Enviar Solicitação",
+    "submitting": "Enviando...",
+    "required": "Obrigatório"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "location": "Abington, MA",
+    "contact_title": "Contato",
+    "follow_title": "Siga"
+  }
+}

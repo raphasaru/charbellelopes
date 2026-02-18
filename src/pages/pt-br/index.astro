@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import AboutSection from '../../components/AboutSection.astro';
+import PortfolioGrid from '../../components/PortfolioGrid.astro';
+import ProcessSection from '../../components/ProcessSection.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { getLangFromUrl, getTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = getTranslations(lang);
+---
+
+<Layout
+  title="Charbelle Lopes | Tatuadora"
+  description="Tatuadora profissional especializada em realismo, retratos de pets e cover-ups. Em Abington, MA."
+>
+  <Hero lang={lang} t={t} />
+  <AboutSection lang={lang} t={t} />
+  <PortfolioGrid lang={lang} t={t} />
+  <ProcessSection lang={lang} t={t} />
+  <ContactForm lang={lang} t={t} />
+</Layout>
