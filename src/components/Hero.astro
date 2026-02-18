@@ -27,14 +27,22 @@ const basePath = lang === 'pt-br' ? '/pt-br' : '';
   <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
     <!-- Name -->
     <h1 class="hero-name font-heading font-semibold mb-6 opacity-0" style="font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: 0.02em; color: #FDF6F9;">
-      {t.hero.name.split('').map((char: string, i: number) => (
-        <span
-          class="inline-block opacity-0 animate-fade-up"
-          style={`animation-delay: ${i * 40}ms`}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
+      {t.hero.name.split(' ').map((word: string, wi: number) => {
+        const charOffset = t.hero.name.split(' ').slice(0, wi).reduce((acc: number, w: string) => acc + w.length + 1, 0);
+        return (
+          <span class="block md:inline">
+            {word.split('').map((char: string, ci: number) => (
+              <span
+                class="inline-block opacity-0 animate-fade-up"
+                style={`animation-delay: ${(charOffset + ci) * 40}ms`}
+              >
+                {char}
+              </span>
+            ))}
+            {wi < t.hero.name.split(' ').length - 1 && <span class="hidden md:inline">&nbsp;</span>}
+          </span>
+        );
+      })}
     </h1>
 
     <!-- Subtitle -->
